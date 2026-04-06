@@ -6,6 +6,7 @@ const backendURL = import.meta.env.VITE_BACKEND_URL;
 const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ const Signup = () => {
       }
     } catch (error) {
       console.log("error signing up", error.response?.data || error.message);
+      setError(error.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -64,7 +66,7 @@ const Signup = () => {
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder="Email" 
           className="p-2 w-full border border-gray-400 outline-none rounded-md mt-5"
         />
 
@@ -75,10 +77,12 @@ const Signup = () => {
           className="p-2 w-full border border-gray-400 outline-none rounded-md mt-5"
         />
 
+        {error && <p className="mt-2 text-red-600">{error}</p>}
+
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-600 text-white w-full p-2 rounded-md mt-5 hover:bg-blue-700 transition duration-300 cursor-pointer mt-9 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-blue-600 text-white w-full p-2 rounded-md hover:bg-blue-700 transition duration-300 cursor-pointer mt-9 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           Signup
         </button>

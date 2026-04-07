@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { userDataContext } from "../context/UserContext";
 const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { setUserData } = useContext(userDataContext);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const Signup = () => {
         withCredentials: true,
       });
       if (res.data.success) {
+        setUserData(res.data.user);
         navigate("/");
       }
     } catch (error) {
@@ -66,7 +69,7 @@ const Signup = () => {
         <input
           type="email"
           name="email"
-          placeholder="Email" 
+          placeholder="Email"
           className="p-2 w-full border border-gray-400 outline-none rounded-md mt-5"
         />
 

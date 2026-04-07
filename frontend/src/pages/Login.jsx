@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { userDataContext } from "../context/UserContext";
 const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { setUserData } = useContext(userDataContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const Login = () => {
       });
       if (res.data.success) {
         navigate("/");
+        setUserData(res.data.user);
       }
     } catch (error) {
       console.log(

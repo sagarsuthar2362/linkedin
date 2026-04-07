@@ -5,17 +5,16 @@ const backendURL = import.meta.env.VITE_BACKEND_URL;
 export const userDataContext = createContext();
 
 const UserContext = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const getUser = async () => {
     try {
       const res = await axios.get(`${backendURL}/api/user/currentuser`, {
         withCredentials: true,
       });
-      setUser(res.data);
-      console.log(res);
+      setUserData(res.data?.user);
     } catch (error) {
-      console.log("error fetching user data", error?.response);
+      console.log("error fetching user data", error);
     }
   };
 
@@ -25,7 +24,7 @@ const UserContext = ({ children }) => {
 
   return (
     <div>
-      <userDataContext.Provider value={user}>
+      <userDataContext.Provider value={{ userData, setUserData }}>
         {children}
       </userDataContext.Provider>
     </div>

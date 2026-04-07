@@ -34,9 +34,16 @@ export const register = asyncHandler(async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
+  const userData = user.toObject();
+  delete userData.password;
+
   return res
     .status(201)
-    .json({ success: true, message: "User registered succesfully" });
+    .json({
+      success: true,
+      message: "User registered succesfully",
+      user: userData,
+    });
 });
 
 export const login = asyncHandler(async (req, res) => {
@@ -65,9 +72,15 @@ export const login = asyncHandler(async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
-  return res
-    .status(200)
-    .json({ success: true, message: "Logged in succesfully" });
+  // converting the user to the object
+  const userData = user.toObject();
+  delete userData.password;
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged in succesfully",
+    user: userData,
+  });
 });
 
 export const logout = asyncHandler(async (req, res) => {

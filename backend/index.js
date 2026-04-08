@@ -6,12 +6,14 @@ import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
 import userRouter from "./routes/user.routes.js";
 const PORT = process.env.PORT || 3000;
-
 dotenv.config();
+
 const app = express();
 await connectDB();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.use(cookieParser());
 app.use(
   cors({

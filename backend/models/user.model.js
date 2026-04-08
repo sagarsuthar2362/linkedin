@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    skills: [String],
+    headline: String,
+    location: String,
     education: [
       {
         institutionName: {
@@ -40,7 +43,7 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
-    expreience: [
+    experience: [
       {
         companyName: {
           type: String,

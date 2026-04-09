@@ -6,6 +6,8 @@ export const userDataContext = createContext();
 
 const UserContext = ({ children }) => {
   const [userData, setUserData] = useState(null);
+  const [showCreatePostPopup, setshowCreatePostPopup] = useState(false);
+  const [posts, setPosts] = useState([]);
 
   const getUser = async () => {
     try {
@@ -18,13 +20,34 @@ const UserContext = ({ children }) => {
     }
   };
 
+  const getPosts = async () => {
+    try {
+      const res = await axios.get(`${backendURL}/api/posts/`, {
+        withCredentials: true,
+      });
+      setPosts(res.data?.posts || []);
+    } catch (error) {
+      console.log("error fetching posts", error);
+    }
+  };
+
   useEffect(() => {
     getUser();
+    getPosts();
   }, []);
 
   return (
     <div>
-      <userDataContext.Provider value={{ userData, setUserData }}>
+      <userDataContext.Provider
+        value={{
+          userData,
+          setUserData,
+          showCreatePostPopup,
+          setshowCreatePostPopup,
+          posts,
+          setPosts
+        }}
+      >
         {children}
       </userDataContext.Provider>
     </div>

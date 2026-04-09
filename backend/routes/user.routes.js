@@ -8,7 +8,7 @@ import isAuth from "../middleware/isAuth.js";
 const userRouter = express.Router();
 
 userRouter.get("/currentuser", isAuth, getCurrentUser);
-userRouter.post(
+userRouter.put(
   "/update-profile",
   isAuth,
   upload.fields([

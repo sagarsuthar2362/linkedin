@@ -47,7 +47,7 @@ const EditProfile = ({ setEditProfile }) => {
     if (experience) formData.append("experience", JSON.stringify(experience));
 
     try {
-      const res = await axios.post(
+      const res = await axios.put(
         `${backendURL}/api/user/update-profile`,
         formData,
         {

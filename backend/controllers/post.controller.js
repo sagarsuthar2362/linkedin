@@ -64,3 +64,32 @@ export const handleLike = asyncHandler(async (req, res) => {
     message: "Post liked/unliked successfully",
   });
 });
+
+export const handleComment = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+  const { content } = req.body;
+
+  if (!content || content.trim() === "") {
+    throw new ApiError(400, "comment cannot be empty");
+  }
+
+  const post = await Post.findByIdAndUpdate(postId, {
+    $push: {
+      comments: {
+        content,
+        user: req.userId,
+      },
+    },
+  });
+
+  if (!post) {
+    throw new ApiError(404, "post not found");
+  }
+
+  console.log(post)
+  return res
+    .status(200)
+    .json({ success: true, message: "Comment added succesfully" });
+
+  console.log(post);
+});

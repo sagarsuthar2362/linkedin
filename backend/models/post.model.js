@@ -11,6 +11,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      default: null,
+    },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -33,3 +37,4 @@ const postSchema = new mongoose.Schema(
 );
 
 const Post = mongoose.model("Post", postSchema);
+export default Post;

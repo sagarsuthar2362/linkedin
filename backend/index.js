@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
 import userRouter from "./routes/user.routes.js";
+import postRouter from "./routes/post.routes.js";
 const PORT = process.env.PORT || 3000;
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/posts", postRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

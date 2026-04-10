@@ -86,7 +86,6 @@ export const handleComment = asyncHandler(async (req, res) => {
     throw new ApiError(404, "post not found");
   }
 
-  console.log(post)
   return res
     .status(200)
     .json({ success: true, message: "Comment added succesfully" });

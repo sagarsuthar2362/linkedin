@@ -1,10 +1,10 @@
 import express from "express";
-import isAuth from "../middleware/isAuth";
+import isAuth from "../middleware/isAuth.js";
 import {
   acceptConnection,
   rejectConnection,
   sendConnection,
-} from "../controllers/connection.controller";
+} from "../controllers/connection.controller.js";
 const connectionRouter = express.Router();
 
 connectionRouter.get("/send/:receiverId", isAuth, sendConnection);
